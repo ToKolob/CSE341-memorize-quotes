@@ -1,14 +1,14 @@
 const mongodb = require('../data/mongodb.js');
 const ObjectId = require('mongodb').ObjectId;
 
-const getQuote = async (req, res) => {
-  // #swagger.tags = ['quotes']
+const getScripture = async (req, res) => {
+  // #swagger.tags = ['scriptures']
 
   try {
     const list = await mongodb
     .getDatabase()
     .db()
-    .collection('quotes')
+    .collection('scriptures')
     .find()
     .toArray();
 
@@ -21,22 +21,22 @@ const getQuote = async (req, res) => {
   }
 };
 
-const getQuoteById = async (req, res) => {
+const getScriptureById = async (req, res) => {
   if (!ObjectId.isValid(req.params.id)) {
     res.status(400).send('Invalid ID');
     return;
   }
-  // #swagger.tags = ['quotes']
+  // #swagger.tags = ['scriptures']
   try {
     const id = new ObjectId(req.params.id);
-    const quote = await mongodb
+    const scripture = await mongodb
     .getDatabase()
     .db()
-    .collection('quotes')
+    .collection('scriptures')
     .findOne({ _id: id });
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(quote);
+    res.status(200).json(scripture);
 
   } catch (err) {
     console.log(err);
@@ -44,24 +44,24 @@ const getQuoteById = async (req, res) => {
   }
 };
 
-const postQuote = async (req, res) => {
-  // #swagger.tags = ['quotes']
+const postScripture = async (req, res) => {
+  // #swagger.tags = ['scriptures']
   try {
-    const quote = {
-      author: req.body.author,
-      work: req.body.work,
-      theme: req.body.theme,
-      quote: req.body.quote,
-      year: req.body.year
+    const scripture = {
+      class: req.body.class,
+      book: req.body.book,
+      chapter: req.body.chapter,
+      verse: req.body.verse,
+      text: req.body.text
     }
     await mongodb
     .getDatabase()
     .db()
-    .collection('quotes')
-    .insertOne(quote);
+    .collection('scriptures')
+    .insertOne(scripture);
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(quote);
+    res.status(200).json(scripture);
 
   } catch (err) {
     console.log(err);
@@ -69,8 +69,8 @@ const postQuote = async (req, res) => {
   }
 };
 
-const putQuote = async (req, res) => {
-  // #swagger.tags = ['quotes']
+const putScripture = async (req, res) => {
+  // #swagger.tags = ['scriptures']
   if (!ObjectId.isValid(req.params.id)) {
     res.status(400).send('Invalid ID');
     return;
@@ -78,21 +78,21 @@ const putQuote = async (req, res) => {
 
   try {
     const id = new ObjectId(req.params.id);
-    const quote = {
-      author: req.body.author,
-      work: req.body.work,
-      theme: req.body.theme,
-      quote: req.body.quote,
-      year: req.body.year
+    const scripture = {
+      class: req.body.class,
+      book: req.body.book,
+      chapter: req.body.chapter,
+      verse: req.body.verse,
+      text: req.body.text
     }
     await mongodb
     .getDatabase()
     .db()
-    .collection('quotes')
-    .updateOne({ _id: id }, { $set: quote });
+    .collection('scriptures')
+    .updateOne({ _id: id }, { $set: scripture });
 
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(quote);
+    res.status(200).json(scripture);
 
   } catch (err) {
     console.log(err);
@@ -100,8 +100,8 @@ const putQuote = async (req, res) => {
   }
 };
 
-const deleteQuote = async (req, res) => {
-  // #swagger.tags = ['quotes']
+const deleteScripture = async (req, res) => {
+  // #swagger.tags = ['scriptures']
   if (!ObjectId.isValid(req.params.id)) {
     res.status(400).send('Invalid ID');
   }
@@ -111,7 +111,7 @@ const deleteQuote = async (req, res) => {
     await mongodb
     .getDatabase()
     .db()
-    .collection('quotes')
+    .collection('scriptures')
     .deleteOne({ _id: id });
 
     res.setHeader('Content-Type', 'application/json');
@@ -123,4 +123,4 @@ const deleteQuote = async (req, res) => {
   }
 };
 
-module.exports = { getQuote, getQuoteById, postQuote, putQuote, deleteQuote };
+module.exports = { getScripture, getScriptureById, postScripture, putScripture, deleteScripture };

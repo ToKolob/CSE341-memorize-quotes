@@ -8,5 +8,6 @@ router.get('/', (req, res) => {
 });
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 router.use('/quotes', require('./quotes.js'));
+router.use('/scriptures', require('./scriptures.js'));
 
 module.exports = router;
