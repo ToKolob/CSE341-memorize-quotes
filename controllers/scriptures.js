@@ -49,6 +49,8 @@ const postScripture = async (req, res) => {
   try {
     const scripture = {
       class: req.body.class,
+      topic: req.body.topic,
+      deficulty: req.body.deficulty,
       book: req.body.book,
       chapter: req.body.chapter,
       verse: req.body.verse,

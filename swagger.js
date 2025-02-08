@@ -5,8 +5,8 @@ const doc = {
     title: 'Momorize Quotes API',
     description: 'Memorize quotes for CSE341 project',
   },
-  host: 'localhost:3000',
-  schemes: ['http' ,'https']
+  host: 'cse341-memorize-quotes.onrender.com',
+  schemes: ['https']
 };
 
 const outputFile = './swagger.json';
